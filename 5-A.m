@@ -11,7 +11,7 @@ classdef 5-A
     %
     %   <ANY ADDITIONAL DOCUMENTATION>
     %
-    %   by <TEAM MEMBER NAMES>
+    %   by Kimberly Wolford, D'Miria Collins, Prav Tadikonda
     %   Last updated <DATE>
 
 
