@@ -13,7 +13,34 @@ function solution = Two_A(cardNums, targetNum)
     %   by Kimberly Wolford, D'Miria Collins, Prav Tadikonda
     %   Last updated <DATE>
     %
+solution = '';
+y=1;
 [cardNums, targetNum] = Set_Up();    %Gets the parameters from Set_Up()
+while y<6
+    check = cardNums(y);
+    nextNum = cardNums(y+1);
+    op = randi([1 4],1,1);
+    if op==1
+        check = check + nextNum;
+    else if op==2
+            check = check - nextNum;
+        else if op==3
+                check = check * nextNum;
+            else if op==4
+                    check = check / nextNum;
+                end
+            end
+        end
+    end
+    y = y+1;
+end
+if check == targetNum
+    
+end
+    
+disp(sum(4, 4));
+disp(cardNums);
+disp(targetNum);
 end  % end of function
 
 function [cardsDealt, primeNum] = Set_Up()
