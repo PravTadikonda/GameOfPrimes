@@ -16,4 +16,38 @@ classdef 5-A
     %
 
     end  % end of function
+    function [cardsDealt, primeNum] = Set_Up()
+%UNTITLED2 Summary of this function goes here
+%   Detailed explanation goes here
+
+prompt = 'Enter a prime number between 100 and 200.   ';
+n = input(prompt);
+while ~isprime(n) || n<100 || n>200;
+    prompt = 'Try again.   ';
+    n = input(prompt);
+end
+arr = [];
+while length(arr)<6;
+    %random number num
+    num = randi([1 13],1,1);
+    if length(arr)<= 0;
+        arr =[arr num];
+    else
+        %make sure no num used more than 4 times
+        i=1;
+        count=0;
+        while i<=length(arr);
+            if arr(i)==num;
+                count = count+1;
+            end
+            i = i + 1;
+        end
+        if count<4;
+            arr = [arr num];
+        end
+    end
+end
+cardsDealt = arr;
+primeNum=n;
+end
 end
