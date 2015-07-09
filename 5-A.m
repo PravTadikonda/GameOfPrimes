@@ -13,8 +13,7 @@ classdef 5-A
     %
     %   by Kimberly Wolford, D'Miria Collins, Prav Tadikonda
     %   Last updated <DATE>
-
+    %
 
     end  % end of function
 end
-
