@@ -14,31 +14,35 @@ function solution = Two_A(cardNums, targetNum)
     %   Last updated <DATE>
     %
 solution = '';
-y=1;
+
+x=0;
 [cardNums, targetNum] = Set_Up();    %Gets the parameters from Set_Up()
+while x<700000
+    y=1;
 while y<6
-    check = cardNums(y);
-    nextNum = cardNums(y+1);
+    cardShuffle = cardNums(randperm(length(cardNums)));
+    check = cardShuffle(y);
+    nextNum = cardShuffle(y+1);
     op = randi([1 4],1,1);
     if op==1
         check = check + nextNum;
-    else if op==2
-            check = check - nextNum;
-        else if op==3
-                check = check * nextNum;
-            else if op==4
-                    check = check / nextNum;
-                end
-            end
-        end
+    elseif op==2
+        check = check - nextNum;
+    elseif op==3
+        check = check * nextNum;
+    elseif op==4
+        check = check / nextNum;
     end
     y = y+1;
 end
 if check == targetNum
-    
+    disp('yay!');
+    break;
+else
+    x=x+1;
 end
-    
-disp(sum(4, 4));
+end
+disp('done');
 disp(cardNums);
 disp(targetNum);
 end  % end of function
