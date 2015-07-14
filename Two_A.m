@@ -13,38 +13,54 @@ function solution = Two_A(cardNums, targetNum)
     %   by Kimberly Wolford, D'Miria Collins, Prav Tadikonda
     %   Last updated <DATE>
     %
+    tic;
 solution = '';
 
 x=0;
 [cardNums, targetNum] = Set_Up();    %Gets the parameters from Set_Up()
-while x<700000
+deck = ['Your cards are: ', num2str(cardNums)];
+disp(deck);
+while x<3000
     y=1;
-while y<6
     cardShuffle = cardNums(randperm(length(cardNums)));
     check = cardShuffle(y);
+    test = ['(((((', num2str(check)];
+while y<6
     nextNum = cardShuffle(y+1);
     op = randi([1 4],1,1);
     if op==1
         check = check + nextNum;
+        addNums = [' + ', num2str(nextNum), ') '];
+        test = [test, addNums];
     elseif op==2
         check = check - nextNum;
+        subNums = [' - ', num2str(nextNum), ') '];
+        test = [test, subNums];
     elseif op==3
         check = check * nextNum;
+        multiNums = [' * ', num2str(nextNum), ') '];
+        test = [test, multiNums];
     elseif op==4
         check = check / nextNum;
+        divideNums = [' / ', num2str(nextNum), ') '];
+        test = [test, divideNums];
     end
     y = y+1;
 end
 if check == targetNum
-    disp('yay!');
+    disp('I have found a solution.');
+    %set solution string to the solution found
+    solution = test;
     break;
 else
     x=x+1;
 end
 end
-disp('done');
-disp(cardNums);
-disp(targetNum);
+if check ~= targetNum
+    disp('I cannot find a solution.');
+end
+
+toc;
 end  % end of function
 
 function [cardsDealt, primeNum] = Set_Up()
