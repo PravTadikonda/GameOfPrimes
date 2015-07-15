@@ -61,119 +61,112 @@ while(dealAgain)
 end
 
 % Use brute force to check
-%without parenthesis
 keepChecking = true;
-startingInd = 1;
-totalNum = 0;
-strAns = '';
+
+%get all the numbers (6! ways)
 allPossibleNumOrder = perms(cards);
-% disp(allPossible(1,:));
-% b = strread(num2str(allPossible(1:1,1:3)),'%s');
 totalNumCombos = size(allPossibleNumOrder,1);
 
+%get all the operations (4^5 ways)
 vec = [1,2,3,4];
 allPossibleOperOrder = [];
 for i = 5:-1:1
     tmp = repmat(vec,[power(4,(5-i)),power(4,(i-1))]);
     allPossibleOperOrder(:,i) = tmp(:);
 end
-% disp(allPossibleOperOrder);
 totalOperCombos = size(allPossibleOperOrder,1);
 
+%check every combination
 for rowNum = 1:totalNumCombos
     numOrder = allPossibleNumOrder(rowNum,:);
-    nums = strread(num2str(numOrder),'%s'); %CHANGE TO STRREAD
+    nums = strread(num2str(numOrder),'%s'); %CHANGE TO STRREAD; might have to move this down more
+    
     for rowOper = 1:totalOperCombos
         operOrder = allPossibleOperOrder(rowOper,:);
         %operations = strread(num2str(operOrder),'%s');
         operations = {};
+        keepTrack = [];
         for x = 1:5
             replace = operOrder(x);
             switch replace
                 case 1
                     operations{x} = ' + ';
+                    keepTrack(x) = 0;
                 case 2
                     operations{x} = ' - ';
+                    keepTrack(x) = 0;
                 case 3
                     operations{x} = ' * ';
+                    keepTrack(x) = x;
                 case 4
                     operations{x} = ' / ';
+                    keepTrack(x) = x;
             end
         end
+        newNums = [];
+        for m = 1:numel(numOrder)
+            newNums(m) = numOrder(m);
+        end
         
+        %first do the multiplication and division
+        newOper = [];
+        for x = 1:numel(keepTrack)
+            if keepTrack(x) > 0
+                switch operOrder(x)
+                    case 3           
+                        n = newNums(x) * newNums(x+1);
+                    case 4
+                        n = newNums(x) / newNums(x+1);
+                end
+                newNums(x+1) = n;
+                newNums(x) = 0;
+                newOper(x) = 0;
+            else
+                newOper(x) = operOrder(x);
+            end
+        end
+        newNums(newNums == 0) = [];
+        newOper(newOper == 0) = [];
+        
+        %second, do the addition and subtraction
+        totalSum = 0;
+        if numel(newOper) > 0
+            for x = 1:numel(newNums)
+                if x == 1
+                    totalSum = newNums(x);
+                else
+                    op = newOper(x - 1);
+                    switch op
+                        case 1
+                            totalSum = totalSum + newNums(x);
+                        case 2
+                            totalSum = totalSum - newNums(x);
+                    end
+                end
+            end
+        else
+            totalSum = newNums(1);
+        end
+    end
+    %disp(numOrder);
+    %break;
+end
+disp(operations);
+
+
         % Do the actual math & check
             % if works, leave this loop by break
-        
-        if (~keepChecking)
-            rowOper = totalOperCombos + 1;
-        end
-        str = [strjoin(nums,operations) ' = ' num2str(primeNum)];
-        disp(str);
-    end
-    
+        % keep order of operation
+        % delete repeats?
+        %
+
+
     %go through all perms of operations
         %combine them for string
         %str = strjoin(nums,operations);
         %do the math   
     %check the answer
-        
-    
-    
-%     iterateInd = startingInd;
-%     nums = ;
-%     operations = {};
-%     
-%     disp('-------------------------------');
-%     for x = 0:10
-%         %tempNum = 0;
-%         %only 1-6 (number of cards)
-% %         if (iterateInd > 6)
-% %             iterateInd = 1;
-% %         end
-%         %numbers
-%         if (mod(x,2) == 0)
-%             
-%             %disp('HERE');
-% %             nums{1,(x./2 + 1)} = cards(iterateInd);
-% %             disp(nums);
-%             
-%             %disp(cards)
-%            % tempNum = cards(iterateInd);
-%             iterateInd = iterateInd + 1;
-%         
-%         %operations    
-%         else
-%             %C = {'one','two','three'};
-%             %str = strjoin(cards,{' + ',' = '})
-%             %display(str)
-%         end
-%         %ans = strjoin(numbers, operations);
-%         
-%         
-% %         myDict = cell(stringThing);
-% % %         myDict{1,2} = '3';
-% % %         myDict{1,3} = '9';
-% %         C = {'one','two','three'};
-% %         str = strjoin(myDict,{' + ',' = '});
-% %         disp(myDict);
-% %         disp(str);
-%     end
-  
-    
-    %check if combination is correct
-%     if (totalNum == primeNum)
-%         break;
-%     else  
-%         totalNum = 0;
-%         strAns = '';  
-%         startingInd = startingInd + 1;
-%         if (startingInd > 6)
-%             startingInd = 1;
-%         end
-%     end
-end
 
 %disp(['The answer is:'strAns);
-
 end
 
