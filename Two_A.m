@@ -18,7 +18,7 @@ function solution = Two_A(cardNums, targetNum)
     %   Otherwise, 'I could not find a solution.' is displayed.
     %
     %   by Kimberly Wolford, D'Miria Collins, Prav Tadikonda
-    %   Last updated <DATE>
+    %   Last updated 7/14/15
     %
 tic;
 solution = '';
