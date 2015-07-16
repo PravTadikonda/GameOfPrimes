@@ -20,11 +20,11 @@ function solution = Two_A(cardNums, targetNum)
     %   by Kimberly Wolford, D'Miria Collins, Prav Tadikonda
     %   Last updated 7/14/15
     %
-tic;
 solution = '';
 x=0;
 %Gets the parameters from Set_Up()
 [cardNums, targetNum] = Set_Up();
+tic;
 deck = ['Your cards are: ', num2str(cardNums)];
 disp(deck);
 %Goes through 3000 possible solutions until a solution is found or it
