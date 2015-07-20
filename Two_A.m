@@ -22,8 +22,6 @@ function solution = Two_A(cardNums, targetNum)
     %
 solution = '';
 x=0;
-%Gets the parameters from Set_Up()
-[cardNums, targetNum] = Set_Up();
 tic;
 deck = ['Your cards are: ', num2str(cardNums)];
 disp(deck);
@@ -82,43 +80,3 @@ if check ~= targetNum
 end
 toc;
 end  % end of function
-
-function [cardsDealt, primeNum] = Set_Up()
-%This function takes in user input of a prime number between 100 and 200.
-%It also selects six random cards from a standard 52 card deck. 
-%
-
-%user input prompt
-prompt = 'Enter a prime number between 100 and 200.   ';
-n = input(prompt);
-%If the number is not prime or not between 100 and 200, the user is
-%prompted to try again until they enter a prime number between 100 and 200.
-while ~isprime(n) || n<100 || n>200;
-    prompt = 'Try again.   ';
-    n = input(prompt);
-end
-arr = [];
-while length(arr)<6;
-    %random number num between 1 and 13 (cards)
-    num = randi([1 13],1,1);
-    if length(arr)<= 0;
-        arr =[arr num];
-    else
-        %make sure no num used more than 4 times
-        i=1;
-        count=0;
-        while i<=length(arr);
-            if arr(i)==num;
-                count = count+1;
-            end
-            i = i + 1;
-        end
-        %if the number is not already in the array 4 times
-        if count<4;
-            arr = [arr num];
-        end
-    end
-end
-cardsDealt = arr;
-primeNum=n;
-end
